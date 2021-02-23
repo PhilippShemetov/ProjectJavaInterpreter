@@ -16,11 +16,19 @@ public class ModelServer implements IModelServer{
 
     String mes = "";
     
+    String res = "";
+    
     ArrayList<IViewServer> listOfUsers = new ArrayList<>();
     
     void update(){
         for(IViewServer user : listOfUsers){
-            user.refresh();
+            user.send();
+        }
+    }
+    
+    void updateResult(){
+        for(IViewServer user : listOfUsers){
+            user.sendResult();
         }
     }
     
@@ -29,10 +37,21 @@ public class ModelServer implements IModelServer{
          mes = s;
          update();
     }
+    
+    @Override
+    public void setResult(String s) {
+         res = s;
+         updateResult();
+    }
 
     @Override
     public String getText() {
         return mes;
+    }
+    
+    @Override
+    public String getResult() {
+        return res;
     }
 
     @Override

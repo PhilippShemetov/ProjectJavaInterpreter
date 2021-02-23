@@ -43,7 +43,14 @@ public class ModelClient {
     void refresh()
     {
         for (IClientView user : listOfUsers) {
-            user.update();
+            user.send();
+        }
+    }
+    
+     void refreshResult()
+    {
+        for (IClientView user : listOfUsers) {
+            user.sendResult();
         }
     }
     
@@ -67,11 +74,16 @@ public class ModelClient {
                 public void run() {
                     try {
                         while(true) {
-                          int code = dis.readInt();
-                          if(code == 1){
-                              mes = dis.readUTF();
-                              refresh();
-                          }
+                            int code = dis.readInt();
+                            System.out.println(code);
+                            if(code == 1){
+                                mes = dis.readUTF();
+                                refresh();
+                            } else if(code == 2){
+                                res = dis.readUTF();
+                                refreshResult();
+                            }
+                            
                         }
                     } catch (IOException ex) {
                         Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,11 +100,18 @@ public class ModelClient {
     }
     
     String mes = "";
+    String res = "";
     
     public String getCodeText(){
         if(cs == null) return "";
         
         return mes;
+    }
+    
+    public String getTextResult(){
+        if(cs == null) return "";
+        
+        return res;
     }
     
     public void setCodeText(String mes){
@@ -106,10 +125,10 @@ public class ModelClient {
         }
     }
     
-    public void setUpdateText(String mes){
+    public void setTextForInterpreter(String mes){
         if(cs == null) return ;
         try {
-            dos.writeInt(1);
+            dos.writeInt(2);
             dos.writeUTF(mes);
             dos.flush();
         } catch (IOException ex) {

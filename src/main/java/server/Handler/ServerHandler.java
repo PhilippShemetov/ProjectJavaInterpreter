@@ -53,12 +53,13 @@ public class ServerHandler implements IServerHandler{
     }
     
     @Override
-    public void setText(String msg){
+    public void setData(String msg, int code){
         new Thread()
         {
             @Override
             public void run() {
                 try {
+                    dos.writeInt(code);
                     dos.writeUTF(msg);
                     dos.flush();
                 } catch (IOException ex) {

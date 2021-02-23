@@ -13,7 +13,9 @@ import server.View.IViewServer;
  */
 public interface IModelServer {
     void setText(String s);
+    void setResult(String s);
     String getText();
+    String getResult();
     void addUser(IViewServer vs);
     void removeUser();
 }

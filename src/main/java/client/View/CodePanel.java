@@ -103,7 +103,7 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        m.setTextForInterpreter(jTextArea1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
@@ -116,8 +116,14 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     }//GEN-LAST:event_jButton2ActionPerformed
     
     @Override
-    public void update(){
+    public void send(){
         jTextArea1.setText(m.getCodeText());
+        int len = jTextArea1.getDocument().getLength();
+        jTextArea1.setCaretPosition(len);
+    }
+    
+    public void sendResult(){
+        jTextArea2.setText(m.getTextResult());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -32,6 +32,9 @@ public class Server {
     
     public void serverStart(){
         
+        
+        //Создаем модель сервера, который позволит манупулировать с данными 
+        //клиента
         IModelServer m = new ModelServer();
         ServerSocket ss;
         Socket cs;
@@ -49,12 +52,15 @@ public class Server {
             System.out.println("Server start");
             while(true)
             {
-                cs = ss.accept();
+                cs = ss.accept(); //Ждем подключения
                 System.out.println("Has connect");
                 
                 
+                //Создаем класс обработчик для команд
+                IServerHandler srv = new ServerHandler(cs);
                 
-                IServerHandler srv = new ServerHandler(cs); 
+                //Создаем класс для обработки команд и отправки клиенту, где 
+                //принимаем параметры: обработчик и модель сервера
                 IViewServer viewServer = new ViewServer(srv, m);
                 
                 

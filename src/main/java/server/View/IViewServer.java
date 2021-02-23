@@ -10,5 +10,6 @@ package server.View;
  * @author Vasilisa
  */
 public interface IViewServer {
-    void refresh();
+    void send();
+    void sendResult();
 }

@@ -13,5 +13,5 @@ public interface IServerHandler {
     int getCode();
     String getText();
     void setCode(int code);
-    void setText(String msg);
+    void setData(String msg, int code);
 }

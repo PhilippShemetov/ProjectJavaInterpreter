@@ -5,6 +5,10 @@
  */
 package server.View;
 
+import java.io.StringWriter;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import org.python.util.PythonInterpreter;
 import server.Handler.IServerHandler;
 import server.Model.IModelServer;
 
@@ -36,10 +40,21 @@ public class ViewServer implements IViewServer{
                 while(code != -1)
                 {
                     code = srv.getCode();
-                    if(code == 1)
-                    {
-                        //srv.setCode(1);
-                        m.setText(srv.getText());
+                    switch(code){
+                        case 1:
+                            m.setText(srv.getText());
+                            break;
+                        case 2:
+                            try (PythonInterpreter pyInterp = new PythonInterpreter()) {
+                                StringWriter output = new StringWriter();
+                                pyInterp.setOut(output);
+                                String hello = srv.getText();
+                                pyInterp.exec(hello);
+                                m.setResult(output.toString());
+                            } catch(Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
                     }
                     
                 }
@@ -50,9 +65,13 @@ public class ViewServer implements IViewServer{
 
     
     @Override
-    public void refresh() {
-        srv.setCode(1);
-        srv.setText(m.getText());
+    public void send() {
+        srv.setData(m.getText(),1);
+    }
+    
+    @Override
+    public void sendResult() {
+        srv.setData(m.getResult(),2);
     }
     
 }

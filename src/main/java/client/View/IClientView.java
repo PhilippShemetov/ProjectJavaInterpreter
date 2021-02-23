@@ -10,5 +10,6 @@ package client.View;
  * @author Vasilisa
  */
 public interface IClientView {
-    void update();
+    void send();
+    void sendResult();
 }
