@@ -5,6 +5,9 @@
  */
 package server.View;
 
+import server.Handler.IServerHandler;
+import server.Model.IModelServer;
+
 /**
  *
  * @author Vasilisa
@@ -12,4 +15,5 @@ package server.View;
 public interface IViewServer {
     void send();
     void sendResult();
+    public IServerHandler getServerHandler();
 }

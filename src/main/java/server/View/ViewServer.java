@@ -23,10 +23,10 @@ public class ViewServer implements IViewServer{
     
     public ViewServer(IServerHandler _srv,IModelServer _m) {
         m = _m;
-        srv = _srv;
+        srv = _srv; //Разный для каждого потока
         
         start();
-        m.addUser(this);
+        m.addUser(this,srv);
     }
     
     void start()
@@ -42,17 +42,20 @@ public class ViewServer implements IViewServer{
                     code = srv.getCode();
                     switch(code){
                         case 1:
-                            m.setText(srv.getText());
+                            m.setText(srv.getText(),srv);
                             break;
                         case 2:
                             try (PythonInterpreter pyInterp = new PythonInterpreter()) {
                                 StringWriter output = new StringWriter();
+                                StringWriter err = new StringWriter();
                                 pyInterp.setOut(output);
-                                String hello = srv.getText();
-                                pyInterp.exec(hello);
+                                //pyInterp.setErr(err);
+                                //String hello = srv.getText();
+                                //System.out.println(err.toString());
+                                pyInterp.exec(srv.getText());
                                 m.setResult(output.toString());
                             } catch(Exception e) {
-                                e.printStackTrace();
+                                m.setResult(e.toString());
                             }
                             break;
                     }
@@ -63,6 +66,11 @@ public class ViewServer implements IViewServer{
         
     }
 
+    
+    @Override
+    public IServerHandler getServerHandler() {
+        return this.srv;
+    }
     
     @Override
     public void send() {

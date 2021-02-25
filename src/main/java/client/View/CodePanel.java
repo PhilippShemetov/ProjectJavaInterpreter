@@ -7,6 +7,11 @@ package client.View;
 
 import client.Model.BModelClient;
 import client.Model.ModelClient;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
+import com.github.difflib.DiffUtils;
 
 /**
  *
@@ -41,6 +46,7 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jButton1.setText("Запустить");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +75,13 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
             }
         });
 
+        jButton3.setText("Сохранить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,8 +95,10 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -95,7 +110,9 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -107,19 +124,37 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        int line;
+        try {
+            line = jTextArea1.getLineOfOffset(jTextArea1.getCaretPosition());
+            //System.out.println(line);
+            
+            
+        } catch (BadLocationException ex) {
+            Logger.getLogger(CodePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         m.setCodeText(jTextArea1.getText());
+        
         
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         BModelClient.model().init();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    
     
     @Override
     public void send(){
         jTextArea1.setText(m.getCodeText());
-        int len = jTextArea1.getDocument().getLength();
-        jTextArea1.setCaretPosition(len);
+        //int len = jTextArea1.getDocument().getLength();
+        //jTextArea1.setCaretPosition(len);
     }
     
     public void sendResult(){
@@ -129,6 +164,7 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;

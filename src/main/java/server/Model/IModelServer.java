@@ -5,6 +5,7 @@
  */
 package server.Model;
 
+import server.Handler.IServerHandler;
 import server.View.IViewServer;
 
 /**
@@ -12,10 +13,10 @@ import server.View.IViewServer;
  * @author Vasilisa
  */
 public interface IModelServer {
-    void setText(String s);
+    public void setText(String s,IServerHandler sh);
     void setResult(String s);
     String getText();
     String getResult();
-    void addUser(IViewServer vs);
+    void addUser(IViewServer vs,IServerHandler sh);
     void removeUser();
 }

@@ -6,6 +6,7 @@
 package server.Model;
 
 import java.util.ArrayList;
+import server.Handler.IServerHandler;
 import server.View.IViewServer;
 
 /**
@@ -20,8 +21,11 @@ public class ModelServer implements IModelServer{
     
     ArrayList<IViewServer> listOfUsers = new ArrayList<>();
     
-    void update(){
+    void update(IServerHandler sh){
         for(IViewServer user : listOfUsers){
+            if(user.getServerHandler() == sh){
+                continue;
+            }
             user.send();
         }
     }
@@ -33,9 +37,9 @@ public class ModelServer implements IModelServer{
     }
     
     @Override
-    public void setText(String s) {
+    public void setText(String s,IServerHandler sh) {
          mes = s;
-         update();
+         update(sh);
     }
     
     @Override
@@ -55,9 +59,9 @@ public class ModelServer implements IModelServer{
     }
 
     @Override
-    public void addUser(IViewServer vs) {
+    public void addUser(IViewServer vs,IServerHandler sh) {
         listOfUsers.add(vs);
-        update();
+        update(sh);
     }
 
     @Override
