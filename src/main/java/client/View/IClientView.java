@@ -12,4 +12,6 @@ package client.View;
 public interface IClientView {
     void send();
     void sendResult();
+    void sendChanges();
+    void setOriginalText();
 }

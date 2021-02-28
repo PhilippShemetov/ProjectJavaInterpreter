@@ -34,9 +34,11 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
      */
     public CodePanel() {
         initComponents();
+        codeDB.add("");
         m = BModelClient.model();
         m.addClient(this);
-        //update();
+        jList1.setModel(model);
+        
     }
 
     /**
@@ -59,7 +61,9 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton1.setText("Запустить");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,24 +99,25 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jList1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Патчи");
 
-        jButton4.setText("Показать");
-
-        jButton5.setText("Загрузить");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("Откатить");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane4.setViewportView(jTextArea3);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Изменения");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -122,46 +127,52 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5))
-                            .addComponent(jScrollPane3)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jButton2))
-                .addContainerGap(140, Short.MAX_VALUE))
+                        .addComponent(jButton3)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(207, 207, 207))
+                .addGap(98, 98, 98)
+                .addComponent(jLabel2)
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton5)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addGap(0, 85, Short.MAX_VALUE))
+                .addGap(0, 247, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,20 +181,8 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
-        int line;
-        try {
-            line = jTextArea1.getLineOfOffset(jTextArea1.getCaretPosition());
-            //System.out.println(line);
-            
-            
-        } catch (BadLocationException ex) {
-            Logger.getLogger(CodePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        m.setCodeText(jTextArea1.getText());
-        
-        
+
+        m.setCodeText(jTextArea1.getText()); 
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -191,55 +190,74 @@ public class CodePanel extends javax.swing.JPanel implements IClientView{
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String diffa = diff("hello mam kek", "hello dad lol");
-        jList1.add("lul", this);
-        model.addElement(diffa);
-        
+        m.setTextForPatch(jTextArea1.getText());
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        m.setCodeForUnPatch();  
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     
     
     @Override
     public void send(){
         jTextArea1.setText(m.getCodeText());
-        //int len = jTextArea1.getDocument().getLength();
-        //jTextArea1.setCaretPosition(len);
+
     }
     
     public void sendResult(){
         jTextArea2.setText(m.getTextResult());
     }
     
-    
-    public static String diff(String text1, String text2) {
-        List<String> lines1 = Arrays.asList(text1.split("\\r?\\n"));
-        List<String> lines2 = Arrays.asList(text2.split("\\r?\\n"));
-        Patch<String> diff = DiffUtils.diff(lines1, lines2);
-        List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff("text1", "text2", lines1, diff, 0);
-        return String.join("\r\n", unifiedDiff);
+    @Override
+    public void sendChanges() {
+        jTextArea3.setText(m.getChangesCode());
+        model.addElement("Patch: " + (model.getSize() + 1));
     }
+    
+    @Override
+    public void setOriginalText() {
+        jTextArea1.setText(m.getCodeText());
+        model.remove(model.getSize() - 1);
+    }
+    
+    
+//    public static Patch<String> diff(String text1, String text2) {
+//        List<String> lines1 = Arrays.asList(text1.split("\\r?\\n"));
+//        List<String> lines2 = Arrays.asList(text2.split("\\r?\\n"));
+//        Patch<String> diff = DiffUtils.diff(lines1, lines2);
+//        //List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff("text1", "text2", lines1, diff, 0);
+//        return diff;
+//    }
     
     
     DefaultListModel model = new DefaultListModel();
     
-    JList list = new JList(model);
+    ArrayList<String> codeDB = new ArrayList<>();
+    
+    ArrayList<Patch> patchDB = new ArrayList<>();
+    
+    ArrayList<List> changeCodeDB = new ArrayList<>();
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     // End of variables declaration//GEN-END:variables
+
+    
 }

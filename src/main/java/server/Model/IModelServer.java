@@ -14,9 +14,12 @@ import server.View.IViewServer;
  */
 public interface IModelServer {
     public void setText(String s,IServerHandler sh);
+    public void setCodeToUnpatch(String s);
     void setResult(String s);
+    void setChanges(String s);
     String getText();
     String getResult();
+    String getChangesCode();
     void addUser(IViewServer vs,IServerHandler sh);
     void removeUser();
 }

@@ -15,5 +15,7 @@ import server.Model.IModelServer;
 public interface IViewServer {
     void send();
     void sendResult();
+    void sendChangeCode();
+    void sendOriginalText();
     public IServerHandler getServerHandler();
 }

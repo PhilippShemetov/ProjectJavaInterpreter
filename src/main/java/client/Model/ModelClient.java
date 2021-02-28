@@ -38,8 +38,6 @@ public class ModelClient {
     public ModelClient() {
     }
     
-    
-    
     void refresh()
     {
         for (IClientView user : listOfUsers) {
@@ -47,10 +45,21 @@ public class ModelClient {
         }
     }
     
-     void refreshResult()
-    {
+    void refreshResult() {
         for (IClientView user : listOfUsers) {
             user.sendResult();
+        }
+    }
+    
+    void refreshCodeChanges() {
+        for (IClientView user : listOfUsers) {
+            user.sendChanges();
+        }
+    }
+    
+    void refreshCodeFromUnpatch() {
+        for (IClientView user : listOfUsers) {
+            user.setOriginalText();
         }
     }
     
@@ -82,6 +91,12 @@ public class ModelClient {
                             } else if(code == 2){
                                 res = dis.readUTF();
                                 refreshResult();
+                            } else if(code == 3){
+                                codeChanges = dis.readUTF();
+                                refreshCodeChanges();
+                            } else if (code == 4){
+                                mes = dis.readUTF();
+                                refreshCodeFromUnpatch();
                             }
                             
                         }
@@ -101,11 +116,18 @@ public class ModelClient {
     
     String mes = "";
     String res = "";
+    String codeChanges = "";
     
     public String getCodeText(){
         if(cs == null) return "";
         
         return mes;
+    }
+    
+    public String getChangesCode(){
+        if(cs == null) return "";
+        
+        return codeChanges;
     }
     
     public String getTextResult(){
@@ -130,6 +152,28 @@ public class ModelClient {
         try {
             dos.writeInt(2);
             dos.writeUTF(mes);
+            dos.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setTextForPatch(String mes){
+        if(cs == null) return ;
+        try {
+            dos.writeInt(3);
+            dos.writeUTF(mes);
+            dos.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setCodeForUnPatch(){
+        if(cs == null) return ;
+        try {
+            dos.writeInt(4);
+            //dos.writeUTF(mes);
             dos.flush();
         } catch (IOException ex) {
             Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);

@@ -19,6 +19,8 @@ public class ModelServer implements IModelServer{
     
     String res = "";
     
+    String changesText = "";
+    
     ArrayList<IViewServer> listOfUsers = new ArrayList<>();
     
     void update(IServerHandler sh){
@@ -30,7 +32,25 @@ public class ModelServer implements IModelServer{
         }
     }
     
+    void updateCodeToUnpatch(){
+        for(IViewServer user : listOfUsers){
+            user.sendOriginalText();
+        }
+    }
+    
     void updateResult(){
+        for(IViewServer user : listOfUsers){
+            user.sendResult();
+        }
+    }
+    
+    void updateChanges(){
+        for(IViewServer user : listOfUsers){
+            user.sendChangeCode();
+        }
+    }
+    
+    void udpateChanges(){
         for(IViewServer user : listOfUsers){
             user.sendResult();
         }
@@ -40,6 +60,12 @@ public class ModelServer implements IModelServer{
     public void setText(String s,IServerHandler sh) {
          mes = s;
          update(sh);
+    }
+    
+    @Override
+    public void setCodeToUnpatch(String s) {
+         mes = s;
+         updateCodeToUnpatch();
     }
     
     @Override
@@ -57,6 +83,11 @@ public class ModelServer implements IModelServer{
     public String getResult() {
         return res;
     }
+    
+    @Override
+    public String getChangesCode() {
+        return changesText;
+    }
 
     @Override
     public void addUser(IViewServer vs,IServerHandler sh) {
@@ -67,6 +98,12 @@ public class ModelServer implements IModelServer{
     @Override
     public void removeUser() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setChanges(String s) {
+        changesText = s;
+        updateChanges();
     }
     
     
