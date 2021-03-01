@@ -26,7 +26,7 @@ import server.View.ViewServer;
  * @author Vasilisa
  */
 public class Server {
-    int port = 3124;
+    int port = 8080;
     InetAddress ip = null;
     
     

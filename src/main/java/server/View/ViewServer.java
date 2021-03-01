@@ -61,7 +61,6 @@ public class ViewServer implements IViewServer {
                             break;
                         case 3:
                             codeDB.add(srv.getText());
-                            System.out.println("codedb=" + codeDB.size());
                             Patch<String> diffa = diff(codeDB.get(codeDB.size() - 2), codeDB.get(codeDB.size() - 1));
                             patchDB.add(diffa);
                             List<String> lines1 = Arrays.asList(codeDB.get(codeDB.size() - 2).split("\\r?\\n"));
@@ -73,9 +72,6 @@ public class ViewServer implements IViewServer {
                         case 4:
                             if (patchDB.size() > 0) {
                                 Patch<String> lastPatch = patchDB.get(patchDB.size() - 1);
-                                System.out.println(changeCodeDB.size());
-                                System.out.println("PATCH=" + (patchDB.size() - 1));
-                                System.out.println(changeCodeDB.get((patchDB.size() - 1)));
                                 List<String> originalText = DiffUtils.unpatch(changeCodeDB.get((patchDB.size() - 1)), lastPatch);
                                 m.setCodeToUnpatch(String.join("\r\n", originalText));
                                 changeCodeDB.remove(changeCodeDB.size() - 1);

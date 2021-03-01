@@ -95,10 +95,6 @@ public class ModelServer implements IModelServer{
         update(sh);
     }
 
-    @Override
-    public void removeUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void setChanges(String s) {

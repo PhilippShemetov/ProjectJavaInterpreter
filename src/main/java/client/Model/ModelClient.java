@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author Vasilisa
  */
 public class ModelClient {
-    int port = 3124;
+    int port = 8080;
     InetAddress ip = null;
     
     Socket cs;
@@ -84,7 +84,6 @@ public class ModelClient {
                     try {
                         while(true) {
                             int code = dis.readInt();
-                            System.out.println(code);
                             if(code == 1){
                                 mes = dis.readUTF();
                                 refresh();
@@ -173,7 +172,6 @@ public class ModelClient {
         if(cs == null) return ;
         try {
             dos.writeInt(4);
-            //dos.writeUTF(mes);
             dos.flush();
         } catch (IOException ex) {
             Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);

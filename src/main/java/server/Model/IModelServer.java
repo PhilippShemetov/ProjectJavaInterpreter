@@ -21,5 +21,4 @@ public interface IModelServer {
     String getResult();
     String getChangesCode();
     void addUser(IViewServer vs,IServerHandler sh);
-    void removeUser();
 }
